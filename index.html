@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SocialBoost Pro – Facebook Auto Liker</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="app-container" id="app">
+
+        <header class="app-header" id="appHeader">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fab fa-facebook"></i></div>
+                <div class="logo-text">
+                    <h1>SocialBoost</h1>
+                    <span>Auto Liker &bull; Bot Power</span>
+                </div>
+            </div>
+            <div class="header-right" id="headerRight">
+              
+            </div>
+        </header>
+
+        <div id="appContent">
+
+            <div id="authView" class="auth-container">
+                <div class="auth-box" id="authBox">
+                    <!-- Login Form -->
+                    <div id="loginForm">
+                        <div class="auth-logo">
+                            <div class="icon"><i class="fas fa-rocket"></i></div>
+                            <h2>Welcome Back</h2>
+                            <p>Login or continue with Facebook</p>
+                        </div>
+
+                        <button class="btn btn-facebook btn-block" id="fbLoginBtn">
+                            <i class="fab fa-facebook"></i> Continue with Facebook
+                        </button>
+
+                        <div class="auth-divider">or</div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="loginUsername" placeholder="Enter your username" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" />
+                        </div>
+                        <button class="btn btn-primary btn-block" id="loginBtn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                        <div class="auth-switch">
+                            Don't have an account? <a id="switchToRegister">Register</a>
+                        </div>
+                        <div class="user-limit-warning" id="userLimitWarning">
+                            <i class="fas fa-users"></i> Free users: <span id="userCountDisplay">0</span> / 20
+                        </div>
+                    </div>
+
+                    <div id="registerForm" class="hidden">
+                        <div class="auth-logo">
+                            <div class="icon"><i class="fas fa-user-plus"></i></div>
+                            <h2>Create Account</h2>
+                            <p>Join the community &amp; start exchanging likes</p>
+                        </div>
+
+                        <button class="btn btn-facebook btn-block" id="fbLoginBtnReg">
+                            <i class="fab fa-facebook"></i> Sign up with Facebook
+                        </button>
+
+                        <div class="auth-divider">or</div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="registerUsername" placeholder="Choose a username" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="registerPassword" placeholder="Create a password" />
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="registerConfirm" placeholder="Confirm your password" />
+                        </div>
+                        <button class="btn btn-success btn-block" id="registerBtn">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                        <div class="auth-switch">
+                            Already have an account? <a id="switchToLogin">Login</a>
+                        </div>
+                        <div class="user-limit-warning">
+                            <i class="fas fa-users"></i> Free users: <span id="userCountDisplay2">0</span> / 20
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dashboardView" class="hidden">
+
+                <div class="greeting-section" id="greetingSection">
+                    <div class="greeting-content">
+                        <div class="greeting-icon" id="greetingIcon">🌅</div>
+                        <div class="greeting-text">
+                            <h2 id="greetingMessage">Good Morning, User!</h2>
+                            <p><i class="fas fa-circle" style="color:var(--green);font-size:10px;"></i> You're online &bull; <span id="onlineCountDisplay">0</span> users online</p>
+                        </div>
+                        <div class="greeting-stats">
+                            <div class="stat-badge"><i class="fas fa-star"></i> Points: <span class="num" id="greetingPoints">0</span></div>
+                            <div class="stat-badge"><i class="fas fa-thumbs-up"></i> Given: <span class="num" id="greetingGiven">0</span></div>
+                            <div class="stat-badge"><i class="fas fa-thumbs-down"></i> Received: <span class="num" id="greetingReceived">0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-grid">
+
+                    <div>
+                      
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title"><i class="fas fa-plus-circle"></i> Add Post for Likes</div>
+                                <span class="card-sub">Earn points when bots &amp; users like</span>
+                            </div>
+                            <form id="addPostForm">
+                                <div class="form-group">
+                                    <label>Facebook Post URL</label>
+                                    <input type="url" id="postUrl" placeholder="https://www.facebook.com/..." required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Caption (optional)</label>
+                                    <textarea id="postCaption" placeholder="What's your post about?" rows="2"></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Likes Needed</label>
+                                        <input type="number" id="likesNeeded" value="10" min="1" max="100" />
+                                    </div>
+                                    <div class="form-group" style="display:flex;align-items:flex-end;">
+                                        <button type="submit" class="btn btn-success" style="width:100%;justify-content:center;">
+                                            <i class="fas fa-rocket"></i> Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+   
+                            <div class="cooldown-bar" id="cooldownBar">
+                                <i class="fas fa-clock" style="color:var(--fb-blue);"></i>
+                                <div class="progress"><div class="fill" id="cooldownFill" style="width:100%;"></div></div>
+                                <span class="cooldown-text" id="cooldownText">Ready</span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title"><i class="fas fa-globe"></i> Community Feed</div>
+                                <span class="card-sub" id="feedCount">0 posts</span>
+                            </div>
+                            <div id="feedContainer">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>No posts yet. Be the first!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+
+                        <div class="sidebar-card">
+                            <div class="card-title" style="margin-bottom:12px;">
+                                <i class="fas fa-users" style="color:var(--green);"></i> Online Users
+                                <span style="font-size:13px;font-weight:400;color:var(--text-secondary);margin-left:auto;" id="onlineBadge">0</span>
+                            </div>
+                            <div id="onlineUsersList">
+                                <div class="empty-state" style="padding:12px 0;font-size:13px;">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="sidebar-card">
+                            <div class="card-title"><i class="fas fa-chart-simple"></i> Exchange Stats</div>
+                            <div class="stat-item">
+                                <span class="stat-label">Posts in Queue</span>
+                                <span class="stat-value blue" id="queueCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Exchanges</span>
+                                <span class="stat-value gold" id="totalExchanges">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Bots Active</span>
+                                <span class="stat-value green" id="botCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Points / Like</span>
+                                <span class="stat-value gold">+1</span>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-card">
+                            <div class="card-title"><i class="fas fa-robot"></i> Auto-Liker</div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <button class="btn btn-success btn-sm" id="startAutoLikerBtn">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
+                                <button class="btn btn-danger btn-sm" id="stopAutoLikerBtn">
+                                    <i class="fas fa-stop"></i> Stop
+                                </button>
+                                <button class="btn btn-outline btn-sm" id="clearAllBtn">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                            </div>
+                            <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);">
+                                <span class="status-pill" id="statusPill">
+                                    <span class="dot"></span> Running
+                                </span>
+                            </div>
+                            <div style="margin-top:8px;font-size:12px;color:var(--text-secondary);">
+                                <i class="fas fa-info-circle"></i> Using <span id="botUsedCount">0</span> bot(s) for auto-liking
+                            </div>
+                        </div>
+
+                        <div id="adminPanel" class="hidden">
+                            <div class="sidebar-card" style="border-color:var(--gold);">
+                                <div class="card-title" style="color:var(--gold);">
+                                    <i class="fas fa-crown"></i> Admin Panel
+                                </div>
+
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+                                    <input type="text" id="adminAddUsername" placeholder="Username" style="flex:1;padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:13px;min-width:100px;" />
+                                    <input type="password" id="adminAddPassword" placeholder="Password" style="flex:1;padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-primary);font-size:13px;min-width:100px;" />
+                                    <button class="btn btn-gold btn-sm" id="adminAddBtn">
+                                        <i class="fas fa-user-plus"></i> Add Admin
+                                    </button>
+                                </div>
+
+                                <div class="table-wrap">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="adminUserList">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);">
+                                    <i class="fas fa-info-circle"></i> Free users: <span id="adminUserCount">0</span> / 20 &bull;
+                                    <i class="fas fa-robot"></i> Bots: <span id="adminBotCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <footer class="app-footer" id="appFooter">
+            <div class="credit">
+                <span>Made with <span class="heart">❤</span> by</span>
+                <span class="name">jacklxprocoder</span>
+                <span style="opacity:0.4;">&bull;</span>
+                <span style="font-size:12px;">v3.0</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:12px;">
+                <span><i class="fas fa-shield-alt"></i> Secure</span>
+                <span><i class="fas fa-bolt"></i> Real-time</span>
+                <span id="footerOnline"><i class="fas fa-circle" style="color:var(--green);font-size:8px;"></i> <span id="footerOnlineCount">0</span> online</span>
+            </div>
+        </footer>
+    </div>
+
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js">
+    </script>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
